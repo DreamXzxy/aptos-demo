@@ -7,7 +7,6 @@ export enum AptosActionType {
     UpdateMachikadoAccount,
 }
 
-
 export interface UpdateIsConnected {
     type: AptosActionType.UpdateIsConnected,
     value: boolean,
