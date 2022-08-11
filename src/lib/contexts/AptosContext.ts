@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import type {Dispatch} from "react";
 import {createContext} from "react";
 import type {AptosAction} from "./AptosContextAction";
@@ -10,7 +11,6 @@ export interface AptosContextData {
     account: Account | null
     machikadoAccount: MachikadoAccount | null
 }
-
 
 export const AptosContext = createContext<{state: AptosContextData, dispatch: Dispatch<AptosAction>}>({
     state: {

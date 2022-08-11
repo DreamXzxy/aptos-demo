@@ -6,11 +6,9 @@ import type {AptosPayload} from "./aptos/TransactionBuilder";
 /// Aptos Address
 export type Address = string
 
-
 declare global {
-    var aptos: Aptos | undefined
+    const aptos: Aptos | undefined
 }
-
 
 export interface Aptos {
     connect(): Promise<void>
@@ -21,18 +19,14 @@ export interface Aptos {
     disconnect(): Promise<void>
 }
 
-
 export interface Account {
     address: string
     publicKey: string
 }
 
-
 const TESTNET_URL = "https://fullnode.devnet.aptoslabs.com"
 
-
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
 
 async function isTransactionPending(hash: string): Promise<boolean> {
     const response = await fetch(`${TESTNET_URL}/transactions/${hash}`)
@@ -53,7 +47,6 @@ export async function waitForTransaction(tx: Transaction) {
     return json
 }
 
-
 export async function uploadModules(hex: string[]) {
     const tx = await window.aptos!.signAndSubmitTransaction({
         "type": "module_bundle_payload",
@@ -72,7 +65,6 @@ export async function accountResource(address: string, resourceType: string): Pr
     console.log(response.headers)
     return await response.json()
 }
-
 
 export async function tableItems<T>(handle: string, keyType: string, valueType: string, key: any) {
     const response = await fetch(
@@ -94,4 +86,3 @@ export async function tableItems<T>(handle: string, keyType: string, valueType: 
     }
     return await response.json()
 }
-

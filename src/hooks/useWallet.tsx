@@ -1,4 +1,4 @@
-import { ReactNode, useReducer } from "react";
+import React, { ReactNode, useReducer } from "react";
 import { AptosContext, aptosReducer } from "../lib/contexts/AptosContext";
 
 export function WalletProvider({ children}: {children: ReactNode}){
