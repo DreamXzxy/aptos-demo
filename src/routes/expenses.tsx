@@ -12,7 +12,6 @@ const client = new AptosClient('https://fullnode.devnet.aptoslabs.com');
 export default function Expenses() {
   const aptos = useAptos()
   const {dispatch} = useContext(AptosContext)
-  console.log(aptos, "aptos");
 
   useEffect(() => {
     if (typeof window.aptos === "undefined") {
@@ -43,6 +42,7 @@ export default function Expenses() {
       client.getAccountModules(address).then(setModules);
   }, [address]);
 
+  console.log(modules, "modules");
   const hasModule = modules.some((m) => m.abi?.name === 'Message');
   const publishInstructions = (
     <pre>
@@ -64,7 +64,7 @@ export default function Expenses() {
     const message = ref.current.value;
     const transaction = {
       type: "script_function_payload",
-      function: "0x33c8840298b3f75cfbe37ac11051ba7085b65bbc074937624114cfad8d4d5113::Message::set_message",
+      function: `${address}::Message::set_message`,
       arguments: [toHex(message)],
       type_arguments: [],
     };
@@ -85,9 +85,13 @@ export default function Expenses() {
     client.getAccountResources(address).then(setResources);
   }, [address, resources]);
   const resourceType = `${address}::Message::MessageHolder`;
+  const accountType = "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>";
   const resource = resources.find((r) => r.type.toString() === resourceType);
+  const account = resources.find((r) => r.type.toString() === accountType);
   const data = resource?.data as {message: string} | undefined;
+  const accountData = account?.data as {coin: {value: string}} | undefined;
   const message = data?.message;
+  const value = accountData?.coin.value;
 
   return (
     <main style={{ padding: "1rem 0" }}>
@@ -99,6 +103,10 @@ export default function Expenses() {
           {isEditable && (<a href={address!}>Get public URL</a>)}
         </form>
       ) : publishInstructions}
+      <h2>当前账户余额为</h2>
+      <div>
+        {value}
+      </div>
       <button
         onClick={handleSubmit}>
         写入数据
