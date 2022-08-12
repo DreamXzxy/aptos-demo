@@ -13,31 +13,31 @@ export interface AptosContextData {
 }
 
 export const AptosContext = createContext<{state: AptosContextData, dispatch: Dispatch<AptosAction>}>({
-    state: {
-        isConnected: false,
-        account: null,
-        machikadoAccount: null
-    },
-    dispatch: () => {}
+  state: {
+    isConnected: false,
+    account: null,
+    machikadoAccount: null
+  },
+  dispatch: () => {}
 })
 
 export const aptosReducer = (state: AptosContextData, action: AptosAction) => {
-    switch (action.type) {
-        case AptosActionType.UpdateIsConnected:
-            return {
-                ...state,
-                isConnected: action.value,
-            }
-        case AptosActionType.UpdateAccount:
-            return {
-                ...state,
-                account: action.account,
-            }
-        case AptosActionType.UpdateMachikadoAccount:
-            return {
-                ...state,
-                machikadoAccount: action.account,
-            }
+  switch (action.type) {
+  case AptosActionType.UpdateIsConnected:
+    return {
+      ...state,
+      isConnected: action.value,
     }
-    return state
+  case AptosActionType.UpdateAccount:
+    return {
+      ...state,
+      account: action.account,
+    }
+  case AptosActionType.UpdateMachikadoAccount:
+    return {
+      ...state,
+      machikadoAccount: action.account,
+    }
+  }
+  return state
 }

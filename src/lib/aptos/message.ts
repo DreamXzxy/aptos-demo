@@ -6,11 +6,11 @@ export const toHex = (s: string) => Array.from(new TextEncoder().encode(s)).map(
 
 export async function SetMessage(publisher: Address, message: string) {
   const payload: AptosPayload = {
-      type: "script_function_payload",
-      function: `${publisher}::Message::set_message`,
-      arguments: [toHex(message)],
-      type_arguments: [],
+    type: "script_function_payload",
+    function: `${publisher}::Message::set_message`,
+    arguments: [toHex(message)],
+    type_arguments: [],
   }
-  const tx = await window.aptos!.signAndSubmitTransaction(payload)
-  return await waitForTransaction(tx)
+  const tx = await window.aptos.signAndSubmitTransaction(payload);
+  return await waitForTransaction(tx);
 }

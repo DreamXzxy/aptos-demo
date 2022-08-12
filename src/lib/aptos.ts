@@ -47,7 +47,7 @@ export async function waitForTransaction(tx: Transaction) {
 }
 
 export async function uploadModules(hex: string[]) {
-  const tx = await window.aptos!.signAndSubmitTransaction({
+  const tx = await window.aptos.signAndSubmitTransaction({
     "type": "module_bundle_payload",
     "modules": hex.map(x => ({"bytecode": x})),
   })
